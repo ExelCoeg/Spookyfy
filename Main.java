@@ -237,11 +237,11 @@ public class Main{
                 System.out.println();
                 if(2024 - tahun > 3){
                     Musik m = new MusikOldschool(judul, genre, artist, pencipta, tahun);
-                    p.getPlaylist().tambahMusik(m);
+                    playlist.tambahMusik(m);
                 }
                 else{
                     Musik m = new MusikNew(judul, genre, artist, pencipta, tahun);
-                    p.getPlaylist().tambahMusik(m);
+                    playlist.tambahMusik(m);
                 }
             }
             if(pilihan == 2){
