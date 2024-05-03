@@ -170,7 +170,7 @@ class PelangganPremium extends Pelanggan{
     }
 
     public void Mendengarkan(){
-        //implementasi
+        //implementasiajkshdasdhjadaws
 
     }
 
