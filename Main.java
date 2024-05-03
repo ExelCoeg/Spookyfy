@@ -154,7 +154,7 @@ abstract class Pelanggan implements Mendengarkan{
     }
     public void Lihat(int index){
         //implementasi
-        
+
     
     }
     abstract void Mendengarkan();
@@ -222,16 +222,12 @@ public class Main{
                 System.out.println("Playlist " + p.getNama());
                 System.out.print("Judul : ");
                 String judul = sc.next();
-                System.out.println();
                 System.out.print("Genre : ");
                 String genre = sc.next();
-                System.out.println();
                 System.out.print("Artist : ");
                 String artist = sc.next();
-                System.out.println();
                 System.out.print("Pencipta : ");
                 String pencipta = sc.next();
-                System.out.println();
                 System.out.print("Tahun : ");
                 int tahun = sc.nextInt();
                 System.out.println();
@@ -253,7 +249,7 @@ public class Main{
             }
             if(pilihan == 3){
                 playlist.tampilPlaylist();
-                System.out.println("Lihat info musik ke- ");
+                System.out.print("Lihat info musik ke- ");
                 int index = sc.nextInt();
                 p.Lihat(index - 1);
             }
