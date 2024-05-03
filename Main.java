@@ -78,6 +78,49 @@ class MusikNew extends Musik{
         return "New";
     }
 }
+class DaftarOldschool{
+    public List<Musik> oldschool = new ArrayList<Musik>();
+    public void tambahOldschool(Musik m){
+        this.oldschool.add(m);
+    }
+    public void hapusOldschool(int index){
+        try{
+            this.oldschool.remove(index);
+        }
+        catch(Exception e){
+            System.out.println("Musik tidak ditemukan\n");
+        }
+    }
+   public void tampilList(){
+       System.out.println("Daftar Lagu Oldschool");
+       for(int i = 0; i < this.oldschool.size(); i++){
+           Musik m = this.oldschool.get(i);
+           System.out.println((i+1) + ". " + m.getJudul());
+       }
+       
+   }
+}
+class DaftarNew{
+    public List<Musik> newmusik = new ArrayList<Musik>();
+    public void tambahNew(Musik m){
+        this.newmusik.add(m);
+    }
+    public void hapusNew(int index){
+        try{
+            this.newmusik.remove(index);
+        }
+        catch(Exception e){
+            System.out.println("Musik tidak ditemukan\n");
+        }
+    }
+    public void tampilList(){
+        System.out.println("Daftar Lagu New: ");
+        for(int i = 0; i < this.newmusik.size(); i++){
+            Musik m = this.newmusik.get(i);
+            System.out.println((i+1) + ". " + m.getJudul());
+        }
+    }
+}
 class Playlist{
     public List<Musik> musik = new ArrayList<Musik>();
 
@@ -89,30 +132,9 @@ class Playlist{
        this.musik.remove(index);
          }
        catch(Exception e){
-           System.out.println("Musik tidak ditemukan");
+           System.out.println("Musik tidak ditemukan\n");
        }
     }
-    
-    public void tampilPlaylist(){
-    System.out.println("Playlist:");
-    int i = 0;
-    while (i < musik.size()) {
-        Musik m = musik.get(i);
-        if(m.getKategori().equalsIgnoreCase("New")){
-            continue;
-        }
-        System.out.println((i+1) + ". Judul: " + m.getJudul());
-        System.out.println("   Genre: " + m.getGenre());
-        System.out.println("   Artist: " + m.getArtist());
-        System.out.println("   Pencipta: " + m.getPencipta());
-        System.out.println("   Tahun: " + m.getTahun());
-        System.out.println("   Kategori: " + m.getKategori());
-        i++;
-    }
-    System.out.println("Total lagu kamu: " + musik.size());
-        
-    }
-
 }
 abstract class Pelanggan implements Mendengarkan{
     private String kodePelanggan;
@@ -168,9 +190,28 @@ abstract class Pelanggan implements Mendengarkan{
             System.out.println("Index tidak valid.");
         }
     }
-    
+    public void tampilPlaylist(){
+        System.out.println("Playlist:");
+        int i = 0;
+        if(getPlaylist().musik.size() == 0){
+            System.out.println("Playlist kosong.");
+        }
+        else{
+            while (i < getPlaylist().musik.size()) {
+                Musik m = getPlaylist().musik.get(i);
+                System.out.println((i+1) + ". Judul: " + m.getJudul());
+                System.out.println("   Genre: " + m.getGenre());
+                System.out.println("   Artist: " + m.getArtist());
+                System.out.println("   Pencipta: " + m.getPencipta());
+                System.out.println("   Tahun: " + m.getTahun());
+                System.out.println("   Kategori: " + m.getKategori());
+                i++;
+            }
+            System.out.println("Total lagu kamu: " + getPlaylist().musik.size());
+            System.out.println();
+        }
+    }
     abstract void Mendengarkan();
-
 }
 class PelangganFree extends Pelanggan {
     // pelanggan free itu cuma bisa liat dan mendengarkan musik oldschool
@@ -189,16 +230,14 @@ class PelangganFree extends Pelanggan {
     }
     
     public void ambilListLagu(){
-        System.out.println("Daftar Lagu:");
+        System.out.println("List Lagu yang dapat didengar: ");
         for(Musik m : this.getPlaylist().musik){
             if(m.getKategori().equals("Oldschool")){
                 System.out.println(m.getJudul());
-            } else if(m.getKategori().equals("New")){
-                System.out.println("Maaf, sebagai pelanggan free, Anda tidak dapat melihat daftar lagu kategori New.");
             }
         }
     }
-
+   
 }
 class PelangganPremium extends Pelanggan{
     //pelanggan premium bisa liat dan mendengarkan musik oldschool dan new
@@ -213,7 +252,7 @@ class PelangganPremium extends Pelanggan{
     }
 
     public void ambilListLagu(){ 
-        System.out.println("Daftar Lagu:");
+        System.out.println("List Lagu yang dapat didengar: ");
         for(Musik m : this.getPlaylist().musik){
             System.out.println(m.getJudul());
         }
@@ -228,73 +267,82 @@ public class Main{
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Pelanggan p = new PelangganFree("0000001", "Sandhika", "Free");
-        Playlist playlist = new Playlist();
-        
+        DaftarOldschool d = new DaftarOldschool();
+        DaftarNew d2 = new DaftarNew();
+        d.tambahOldschool(new MusikOldschool("Lagu1", "Pop", "Artist1", "Pencipta1", 2010));
+        d.tambahOldschool(new MusikOldschool("Lagu2", "Rock", "Artist2", "Pencipta2", 2015));
+        d2.tambahNew(new MusikNew("Lagu2", "Rock", "Artist2", "Pencipta2", 2020));
+        d2.tambahNew(new MusikNew("Lagu3", "Jazz", "Artist3", "Pencipta3", 2021));
+
+        p.setPlaylist(new Playlist());
         while(true){
             System.out.println("Selamat datang " + p.getNama() + " di Spookyfy.");
             System.out.println("1. Tambah Musik");
             System.out.println("2. Hapus musik");
-            System.out.println("3. Lihat playlist");
+            System.out.println("3. Lihat Playlist");
             if(p.getStatusKeanggotaan().equals("Free")){
                 System.out.println("4. Upgrade ke premium");
             }
             else{
                 System.out.println("4. Downgrade ke free");
             }
-            System.out.println("5. Keluar");
+            System.out.println("5. Mendengarkan Musik");
+            System.out.println("6. List Lagu yang dapat didengar");
+            System.out.println("7. Keluar");
             System.out.print("Pilihan : ");
             int pilihan = sc.nextInt();
 
             if(pilihan == 1){
-                System.out.println("Playlist " + p.getNama());
-                System.out.print("Judul : ");
-                String judul = sc.next();
-                System.out.print("Genre : ");
-                String genre = sc.next();
-                System.out.print("Artist : ");
-                String artist = sc.next();
-                System.out.print("Pencipta : ");
-                String pencipta = sc.next();
-                System.out.print("Tahun : ");
-                int tahun = sc.nextInt();
-                System.out.println();
-                if(2024 - tahun > 3){
-                    Musik m = new MusikOldschool(judul, genre, artist, pencipta, tahun);
-                    playlist.tambahMusik(m);
+                System.out.println("1. Musik Oldschool");
+                System.out.println("2. Musik New");
+                System.out.print("Pilihan : ");
+                int pilihan2 = sc.nextInt();
+                if(pilihan2 == 1){
+                    d.tampilList();
+                    System.out.print("Pilih musik: ");
+                    int index = sc.nextInt();
+                    Musik m = d.oldschool.get(index-1);
+                    p.getPlaylist().tambahMusik(m);
                 }
-                else{
-                    Musik m = new MusikNew(judul, genre, artist, pencipta, tahun);
-                    playlist.tambahMusik(m);
+                if(pilihan2 == 2){
+                    d2.tampilList();
+                    System.out.print("Pilih musik: ");
+                    int index = sc.nextInt();
+                    Musik m = d2.newmusik.get(index-1);
+                    p.getPlaylist().tambahMusik(m);
                 }
+                System.out.println("Musik berhasil ditambahkan ke playlist.\n");
             }
             if(pilihan == 2){
-                playlist.tampilPlaylist();
-                System.out.print("Hapus musik ke: ");
+                p.tampilPlaylist();
+                System.out.print("Pilih musik: ");
                 int index = sc.nextInt();
-                playlist.hapusMusik(index - 1);
-
+                p.getPlaylist().hapusMusik(index);
             }
             if(pilihan == 3){
-                playlist.tampilPlaylist();
-                System.out.print("Lihat info musik ke- ");
-                int index = sc.nextInt();
-                p.Lihat(index - 1);
+                p.tampilPlaylist();
             }
             if(pilihan == 4){
                 if(p.getStatusKeanggotaan().equals("Free")){
+                    Playlist temp = p.getPlaylist();
                     p = new PelangganPremium(p.getKodePelanggan(), p.getNama(), "Premium");
-                    p.ambilListLagu();
+                    p.setPlaylist(temp);
                 }
                 else{
+                    Playlist temp = p.getPlaylist();
                     p = new PelangganFree(p.getKodePelanggan(), p.getNama(), "Free");
-                    p.ambilListLagu();
+                    p.setPlaylist(temp);
                 }
             }
-            if(pilihan == 5){
+            if(pilihan==5){
+                p.Mendengarkan();
+            }
+            if(pilihan == 6){
+                p.ambilListLagu();
+            }
+            if(pilihan == 7){
                 break;
             }
         }
-        
     }
-
 }   
