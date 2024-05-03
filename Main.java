@@ -154,7 +154,7 @@ abstract class Pelanggan implements Mendengarkan{
     }
     public void Lihat(int index){
         //implementasi
-
+        
     
     }
     abstract void Mendengarkan();
@@ -246,7 +246,7 @@ public class Main{
             }
             if(pilihan == 2){
                 playlist.tampilPlaylist();
-                System.out.println("Hapus musik ke: ");
+                System.out.print("Hapus musik ke: ");
                 int index = sc.nextInt();
                 playlist.hapusMusik(index - 1);
 
