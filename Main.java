@@ -82,17 +82,34 @@ class Playlist{
     private List<Musik> musik = new ArrayList<Musik>();
 
     public void tambahMusik(Musik m){
-       //implementasi
-
-
+        this.musik.add(m);
     }
     public void hapusMusik(int index){
-        //implementasi
-
-
-    }
+        try{
+       this.musik.remove(index);
+         }
+       catch(Exception e){
+           System.out.println("Musik tidak ditemukan");
+       }
+        }
+    
     public void tampilPlaylist(){
-        //implementasi
+    System.out.println("Playlist:");
+    int i = 0;
+    while (i < musik.size()) {
+        Musik m = musik.get(i);
+        if(m.getKategori().equalsIgnoreCase("New")){
+            continue;
+        }
+        System.out.println((i+1) + ". Judul: " + m.getJudul());
+        System.out.println("   Genre: " + m.getGenre());
+        System.out.println("   Artist: " + m.getArtist());
+        System.out.println("   Pencipta: " + m.getPencipta());
+        System.out.println("   Tahun: " + m.getTahun());
+        System.out.println("   Kategori: " + m.getKategori());
+        i++;
+    }
+    System.out.println("Total lagu kamu: " + musik.size());
         
     }
 
@@ -170,7 +187,6 @@ class PelangganPremium extends Pelanggan{
     }
 
     public void Mendengarkan(){
-        //implementasiajkshdasdhjadaws
 
     }
 
@@ -220,11 +236,11 @@ public class Main{
                 System.out.println();
                 if(2024 - tahun > 3){
                     Musik m = new MusikOldschool(judul, genre, artist, pencipta, tahun);
-                    p.getPlaylist().tambahMusik(m);
+                    playlist.tambahMusik(m);
                 }
                 else{
                     Musik m = new MusikNew(judul, genre, artist, pencipta, tahun);
-                    p.getPlaylist().tambahMusik(m);
+                    playlist.tambahMusik(m);
                 }
             }
             if(pilihan == 2){
