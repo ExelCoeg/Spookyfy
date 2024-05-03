@@ -79,7 +79,7 @@ class MusikNew extends Musik{
     }
 }
 class Playlist{
-    private List<Musik> musik = new ArrayList<Musik>();
+    public List<Musik> musik = new ArrayList<Musik>();
 
     public void tambahMusik(Musik m){
         this.musik.add(m);
@@ -91,7 +91,7 @@ class Playlist{
        catch(Exception e){
            System.out.println("Musik tidak ditemukan");
        }
-        }
+    }
     
     public void tampilPlaylist(){
     System.out.println("Playlist:");
@@ -156,10 +156,19 @@ abstract class Pelanggan implements Mendengarkan{
         this.playlist = playlist;
     }
     public void Lihat(int index){
-        //implementasi
-
-    
+        if(index >= 0 && index < this.playlist.musik.size()){
+            Musik m = this.playlist.musik.get(index);
+            System.out.println("Judul: " + m.getJudul());
+            System.out.println("Genre: " + m.getGenre());
+            System.out.println("Artist: " + m.getArtist());
+            System.out.println("Pencipta: " + m.getPencipta());
+            System.out.println("Tahun: " + m.getTahun());
+            System.out.println("Kategori: " + m.getKategori());
+        } else {
+            System.out.println("Index tidak valid.");
+        }
     }
+    
     abstract void Mendengarkan();
 
 }
@@ -170,13 +179,24 @@ class PelangganFree extends Pelanggan {
     }
     
     public void Mendengarkan(){
-        //implementasi
-
+        for(Musik m : this.getPlaylist().musik){
+            if(m.getKategori().equals("Oldschool")){
+                System.out.println("Mendengarkan " + m.getJudul());
+            } else if(m.getKategori().equals("New")){
+                System.out.println("Maaf, sebagai pelanggan free, Anda tidak dapat mendengarkan musik kategori New.");
+            }
+        }
     }
     
     public void ambilListLagu(){
-        //implementsi
-
+        System.out.println("Daftar Lagu:");
+        for(Musik m : this.getPlaylist().musik){
+            if(m.getKategori().equals("Oldschool")){
+                System.out.println(m.getJudul());
+            } else if(m.getKategori().equals("New")){
+                System.out.println("Maaf, sebagai pelanggan free, Anda tidak dapat melihat daftar lagu kategori New.");
+            }
+        }
     }
 
 }
@@ -187,12 +207,16 @@ class PelangganPremium extends Pelanggan{
     }
 
     public void Mendengarkan(){
-
+        for(Musik m : this.getPlaylist().musik){
+            System.out.println("Mendengarkan " + m.getJudul());
+        }
     }
 
     public void ambilListLagu(){ 
-        // implementasi
-
+        System.out.println("Daftar Lagu:");
+        for(Musik m : this.getPlaylist().musik){
+            System.out.println(m.getJudul());
+        }
     }
 }
 
