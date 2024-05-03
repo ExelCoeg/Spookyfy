@@ -98,6 +98,9 @@ class Playlist{
     int i = 0;
     while (i < musik.size()) {
         Musik m = musik.get(i);
+        if(m.getKategori().equalsIgnoreCase("New")){
+            continue;
+        }
         System.out.println((i+1) + ". Judul: " + m.getJudul());
         System.out.println("   Genre: " + m.getGenre());
         System.out.println("   Artist: " + m.getArtist());
