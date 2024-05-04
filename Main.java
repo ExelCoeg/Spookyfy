@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 import javax.print.attribute.standard.PageRanges;
 
 import java.util.*;
@@ -224,7 +222,7 @@ class PelangganFree extends Pelanggan {
             if(m.getKategori().equals("Oldschool")){
                 System.out.println("Mendengarkan " + m.getJudul());
             } else if(m.getKategori().equals("New")){
-                System.out.println("Maaf, sebagai pelanggan free, Anda tidak dapat mendengarkan musik kategori New.");
+                System.out.println("Maaf, sebagai pelanggan free, Anda tidak dapat mendengarkan musik " + m.getJudul());
             }
         }
     }
@@ -269,10 +267,19 @@ public class Main{
         Pelanggan p = new PelangganFree("0000001", "Sandhika", "Free");
         DaftarOldschool d = new DaftarOldschool();
         DaftarNew d2 = new DaftarNew();
-        d.tambahOldschool(new MusikOldschool("Lagu1", "Pop", "Artist1", "Pencipta1", 2010));
-        d.tambahOldschool(new MusikOldschool("Lagu2", "Rock", "Artist2", "Pencipta2", 2015));
-        d2.tambahNew(new MusikNew("Lagu2", "Rock", "Artist2", "Pencipta2", 2020));
-        d2.tambahNew(new MusikNew("Lagu3", "Jazz", "Artist3", "Pencipta3", 2021));
+       // Menambahkan 5 lagu New secara manual
+        d2.tambahNew(new MusikNew("Shape of You", "Pop", "Ed Sheeran", "Ed Sheeran, Steve Mac, Johnny McDaid", 2017));
+        d2.tambahNew(new MusikNew("Uptown Funk", "Funk", "Mark Ronson ft. Bruno Mars", "Mark Ronson, Jeff Bhasker, Bruno Mars", 2014));
+        d2.tambahNew(new MusikNew("Blinding Lights", "Pop", "The Weeknd", "The Weeknd, Max Martin, Oscar Holter", 2019));
+        d2.tambahNew(new MusikNew("Thinking Out Loud", "Pop", "Ed Sheeran", "Ed Sheeran, Amy Wadge", 2014));
+        d2.tambahNew(new MusikNew("Despacito", "Reggaeton", "Luis Fonsi ft. Daddy Yankee", "Luis Fonsi, Daddy Yankee, Erika Ender", 2017));
+
+        // Menambahkan 5 lagu Oldschool secara manual
+        d.tambahOldschool(new MusikOldschool("Bohemian Rhapsody", "Rock", "Queen", "Freddie Mercury", 1975));
+        d.tambahOldschool(new MusikOldschool("Hotel California", "Rock", "Eagles", "Don Felder, Glenn Frey, Don Henley", 1976));
+        d.tambahOldschool(new MusikOldschool("Stairway to Heaven", "Rock", "Led Zeppelin", "Jimmy Page, Robert Plant", 1971));
+        d.tambahOldschool(new MusikOldschool("Sweet Child o' Mine", "Rock", "Guns N' Roses", "Axl Rose, Slash", 1987));
+        d.tambahOldschool(new MusikOldschool("Smells Like Teen Spirit", "Grunge", "Nirvana", "Kurt Cobain", 1991));
 
         p.setPlaylist(new Playlist());
         while(true){
