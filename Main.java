@@ -325,6 +325,7 @@ public class Main{
                 System.out.print("Pilih musik: ");
                 int index = sc.nextInt();
                 p.getPlaylist().hapusMusik(index);
+                System.out.println();
             }
             if(pilihan == 3){
                 p.tampilPlaylist();
