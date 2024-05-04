@@ -1,4 +1,3 @@
-import javax.print.attribute.standard.PageRanges;
 
 import java.util.*;
 abstract class Musik{
